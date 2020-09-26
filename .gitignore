@@ -1,0 +1,24 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# Django
+.log
+db.sqlite
+db.sqlite3
+sqlite.db
+sqlite3.db
+# migrations
+local_settings.py
+.env
+# Pipfile.lock
+mediaroot
+staticroot
+
+# Note that heroku is stateless and needs all files

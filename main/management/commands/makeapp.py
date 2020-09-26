@@ -1,0 +1,87 @@
+# imports
+from django.core.management.base import BaseCommand
+from django.core import management
+from django.conf import settings
+
+import os
+# End: imports -----------------------------------------------------------------
+
+app_structure = [
+    {'management': [
+        {'commands': [
+            '__init__.py',
+        ]},
+    ]},
+    {'migrations': [ # Added from startapp
+        '__init__.py',
+    ]},
+    {'templates': [
+        {'appname': []},
+    ]},
+    {'static': [
+        {'appname': [
+            {'css': ['example.css']},
+            {'scss': []},
+            {'js': []},
+            {'img': []},
+        ]},
+    ]},
+    '__init__.py',
+    'admin.py', # Added from startapp
+    'apps.py', # Added from startapp
+    'forms.py',
+    'models.py', # Added from startapp
+    'signals.py',
+    'tests.py', # Added from startapp
+    'urls.py',
+    'views.py', # Added from startapp
+]
+
+
+def recursive_creation(structure, appname, path):
+    """
+    Recursively generate folders and files given a structure
+     
+    structure: list 
+        - a description of files (strings) and folders (dictionaries).
+        Each folder has another layer of structure.
+        
+    appname: string 
+        - A name to use instead of "appname" in structures
+    
+    path: string
+        - current working directory 
+    """
+    
+    for item in structure:
+        if type(item) is dict:
+            folder = list(item.keys())[0]
+            foldername = appname if folder == "appname" else folder
+            newpath = path + "/" + foldername
+            try:
+                os.mkdir(newpath)
+            except:
+                pass    
+                
+            recursive_creation(item[folder], appname, newpath)
+        else:
+            filepath = path + "/" + item
+            open(filepath, 'a').close()
+            
+
+class Command(BaseCommand):
+    
+    def add_arguments(self, parser):
+        parser.add_argument(
+            dest='appname',
+            help='appname <appname>',
+        )
+
+    def handle(self, *args, **options):
+        
+        appname = options['appname']
+        management.call_command("startapp", appname)
+        
+        path = os.path.join(settings.BASE_DIR, appname)
+        recursive_creation(app_structure, appname, path)
+        
