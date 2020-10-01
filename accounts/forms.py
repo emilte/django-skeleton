@@ -1,9 +1,9 @@
 # imports
 from django import forms
 from django.db.models import Q
+from django.contrib.auth import get_user_model
 from django.forms.widgets import PasswordInput, TextInput
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UserChangeForm, PasswordChangeForm
-from django.contrib.auth import get_user_model
 
 from accounts.models import *
 from accounts import models as account_models

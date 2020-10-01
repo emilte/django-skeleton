@@ -1,8 +1,8 @@
 # imports
 # import spotipy.oauth2 as oauth2
+import math
 from openpyxl import Workbook
 from operator import itemgetter
-import math
 
 from django.views import View
 from django.db.models import Q
@@ -28,11 +28,10 @@ from accounts import forms as account_forms
 User = get_user_model()
 # End: imports -----------------------------------------------------------------
 
-def getIndexOfTuple(l, index, value):
-    for pos,t in enumerate(l):
-        if t[index] == value:
-            return pos
-
+def getIndexOfTuple(tuplelist, index, value):
+    for i, tuple in enumerate(tuplelist):
+        if tuple[index] == value:
+            return i
     return None
 
 

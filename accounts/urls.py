@@ -17,8 +17,8 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name="accounts/login2.html", form_class=account_forms.CustomAuthenticationForm), name='login'),
     path('logout/', views.LogoutView.as_view(), name='logout'),
     path('change_password/', views.ChangePasswordView.as_view(), name='change_password'),
-    path('profile/', views.ProfileView.as_view(), name='profile'),
     path('profile/edit/', views.EditProfileView.as_view(), name='edit_profile'),
+    path('profile/', views.ProfileView.as_view(), name='profile'),
     path('users/xlsx/', views.UsersXLSX.as_view(), name='users_xlsx'),
 
     #path('delete_user/', views.DeleteUserView.as_view(), name="delete_user"),

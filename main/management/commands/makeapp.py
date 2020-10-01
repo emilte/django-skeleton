@@ -15,6 +15,12 @@ app_structure = [
     {'migrations': [ # Added from startapp
         '__init__.py',
     ]},
+    {'tests': [
+        '__init__.py',
+        'test_models.py',
+        'test_views.py',
+        'test_forms.py',
+    ]},
     {'templates': [
         {'appname': []},
     ]},
