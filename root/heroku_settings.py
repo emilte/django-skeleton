@@ -1,9 +1,7 @@
-from .base_settings import *
+from .base_settings import * # star is neccessary
 
 import django_heroku
 import os
-
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 ENV = "HEROKU"
 
@@ -12,12 +10,12 @@ ALLOWED_HOSTS = ['*']
 # For whitenoise, heroku
 # Extra lookup directories for collectstatic to find static files
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'staticroot'),
+    BASE_DIR / 'staticroot',
 )
 
 # Values are set in heroku dashboard
-SECRET_KEY = os.environ.get('SECRET_KEY') or "Not set"
-DEBUG = os.environ.get('DEBUG') or False
+SECRET_KEY = os.environ['SECRET_KEY']
+DEBUG = os.environ.get('DEBUG', False)
 
 
 #  Add configuration for static files storage using whitenoise, heroku

@@ -2,8 +2,9 @@
 <html lang="en" dir="ltr">
 {% load static %}
 {% load compress %}
-{% load main_tags %}
+{% load root_tags %}
 {% get_settings "ENV" as ENV %}
+{% get_settings "DEV" as DEV %}
 
 <head>
     <meta charset="utf-8">
@@ -23,14 +24,14 @@
 
     <!-- Other stylesheets -->
     {% compress css  %}
-      <link rel="stylesheet" type="text/x-scss" href="{% static 'main/scss/base.scss' %}"/>
-      <link rel="stylesheet" type="text/x-scss" href="{% static 'main/scss/mdb_animations.scss' %}"/>
-      {% if ENV == "DEV" %}
-      <link rel="stylesheet" type="text/x-scss" href='{% static "main/scss/dev.scss" %}'>
+      <link rel="stylesheet" type="text/x-scss" href="{% static 'root/scss/base.scss' %}"/>
+      <link rel="stylesheet" type="text/x-scss" href="{% static 'root/scss/mdb_animations.scss' %}"/>
+      {% if ENV == DEV %}
+      <link rel="stylesheet" type="text/x-scss" href='{% static "root/scss/dev.scss" %}'>
       {% endif %}
     {% endcompress %}
     
-    <link rel="shortcut icon" type="image/png" href="{% static 'main/img/favicon-32x32.png' %}"/>
+    <link rel="shortcut icon" type="image/png" href="{% static 'root/img/favicon-32x32.png' %}"/>
 
 
     <!-- select2 (requires: .js file) -->
@@ -39,7 +40,7 @@
 
     <!-- TinyMCE (requires: .js file and init-script) -->
     <!-- Plugin for complex input-textfields -->
-    <script src="https://cdn.tiny.cloud/1/5fxgnl3dek8av5x5in4ke8fhqsup13fux7rshr2l91r8lgjw/tinymce/5/tinymce.min.js"></script>
+    {# <script src="https://cdn.tiny.cloud/1/5fxgnl3dek8av5x5in4ke8fhqsup13fux7rshr2l91r8lgjw/tinymce/5/tinymce.min.js"></script> #}
 
 
     <!-- flatpickr (requires .js file and init-script) -->
@@ -50,7 +51,6 @@
     <!-- Title -->
     <title>{% block title %}Base{% endblock %}</title>
 
-
     {% block head %}
         <!-- head access for extended templates -->
     {% endblock %}
@@ -58,7 +58,9 @@
 
 <body>
 
-    {% include "main/navbar.html" %}
+    {% block navbar %}
+    {% include "root/navbar.html" %}
+    {% endblock %}
 
 
     <div id="content-wrapper" class="container-fluid p-1">
@@ -115,7 +117,7 @@
     <div class="mt-5">
         <canvas class="position-absolute w-100"></canvas>
         <div class="position-absolute w-100">
-            {% include "main/footer.html" %}
+            {% include "root/footer.html" %}
         </div>
     </div>
 
@@ -125,11 +127,11 @@
     <!-- Note: Scripts and plugins are imported last because of better user experience -->
 
 
-    <!-- JQuery first (3.5.0 breaks the site), then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-    {# <script src="https://code.jquery.com/jquery-3.5.0.js" integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc=" crossorigin="anonymous"></script> #}
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin="anonymous"></script>
+    <!-- JQuery first, then Popper.js, then Bootstrap JS -->
+    {# <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script> #}
+    <script src="https://code.jquery.com/jquery-3.5.0.js" integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc=" crossorigin="anonymous"></script>
     {# <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.4.0/cjs/popper.min.js" integrity="sha256-OH05DFHUWzr725HmuHo3pnuvUUn+TJuj8/Qz9xytFEw=" crossorigin="anonymous"></script> #}
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin="anonymous"></script>
     {# <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> #}
 
     <!-- MDB (requires: .css file) -->
@@ -144,7 +146,7 @@
 
     <!-- constellation effect for footer -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.js" integrity="sha256-U+vPaw6wGRNjtBRznIBWHgpzNvNI8pRs8fQC313cxfs=" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="{% static "main/js/constellation.js" %}"></script>
+    <script type="text/javascript" src="{% static "root/js/constellation.js" %}"></script>
 
     <!-- BsMultiselect -->
     <!-- https://www.jqueryscript.net/form/Bootstrap-4-Multi-Select-BsMultiSelect.html -->

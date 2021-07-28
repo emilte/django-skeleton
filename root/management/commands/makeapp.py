@@ -1,9 +1,10 @@
 # imports
-from django.core.management.base import BaseCommand
+import os
+
 from django.core import management
 from django.conf import settings
+from django.core.management.base import BaseCommand
 
-import os
 # End: imports -----------------------------------------------------------------
 
 app_structure = [
@@ -88,6 +89,6 @@ class Command(BaseCommand):
         appname = options['appname']
         management.call_command("startapp", appname)
         
-        path = os.path.join(settings.BASE_DIR, appname)
+        path = settings.BASE_DIR / appname
         recursive_creation(app_structure, appname, path)
         

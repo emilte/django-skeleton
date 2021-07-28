@@ -21,4 +21,4 @@ local_settings.py
 mediaroot
 staticroot
 
-# Note that heroku is stateless and needs all files
+# Note that heroku is stateless and needs all files, including migrations
