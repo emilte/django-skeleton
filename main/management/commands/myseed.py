@@ -2,10 +2,10 @@
 import random
 from django_seed import Seed
 
-from django.core.management.base import BaseCommand
 from django.core import management
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model; User = get_user_model()
 from django.contrib.auth import models as auth_models
+from django.core.management.base import BaseCommand
 
 from wiki import models as wiki_models
 from events import models as event_models
@@ -13,9 +13,6 @@ from gallery import models as gallery_models
 from accounts import models as account_models
 # End: imports -----------------------------------------------------------------
 
-# Settings:
-
-User = get_user_model()
 
 
 
