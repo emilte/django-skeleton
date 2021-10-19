@@ -1,10 +1,9 @@
 # imports
-import os
-
+from django.core.management.base import BaseCommand
 from django.core import management
 from django.conf import settings
-from django.core.management.base import BaseCommand
 
+import os
 # End: imports -----------------------------------------------------------------
 
 app_structure = [
@@ -64,7 +63,7 @@ def recursive_creation(structure, appname, path):
         if type(item) is dict:
             folder = list(item.keys())[0]
             foldername = appname if folder == "appname" else folder
-            newpath = path + "/" + foldername
+            newpath = path / foldername
             try:
                 os.mkdir(newpath)
             except:
@@ -72,7 +71,7 @@ def recursive_creation(structure, appname, path):
                 
             recursive_creation(item[folder], appname, newpath)
         else:
-            filepath = path + "/" + item
+            filepath = path / item
             open(filepath, 'a').close()
             
 

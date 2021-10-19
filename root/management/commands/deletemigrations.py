@@ -13,6 +13,8 @@ from django.core.management.base import BaseCommand
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
+        """ Delete all migration files for each installed app """
+
         for app in settings.INSTALLED_APPS:
             try:
                 path = app.replace('.', '/')

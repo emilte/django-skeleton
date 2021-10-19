@@ -8,17 +8,35 @@ pids
 *.pid
 *.seed
 
-# Django
+### Django ###
 .log
-db.sqlite
-db.sqlite3
-sqlite.db
-sqlite3.db
+db.*
+*.db
 # migrations
 local_settings.py
-.env
 # Pipfile.lock
 mediaroot
 staticroot
-
+*.pyc
+*.pyo
+__pycache__
+.pytest_cache
 # Note that heroku is stateless and needs all files, including migrations
+
+.DS_Store
+node_modules
+
+### VisualStudioCode ###
+.vscode/**/*
+!.vscode/settings.json.default
+!.vscode/settings.json.recommended
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/extensions.json.recommended
+
+### Environment ###
+venv/
+.venv/
+Pipfile
+Pipfile.lock
+.env
