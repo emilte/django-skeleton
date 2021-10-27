@@ -12,12 +12,12 @@ from django.core.management.base import BaseCommand
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
-        """ Migrate each installed app to zero """
+        """ Call makemigrations on each installed app """
         
         for app in settings.INSTALLED_APPS:
+            appname = app.split('.')[-1]
             try:
-                appname = app.split('.')[-1]
-                management.call_command('migrate', appname, 'zero')
+                management.call_command('makemigrations', appname)
             except Exception as e:
                 pass
-                # print(f"{app} failed. {e}")
+                print(f"{app} failed. {e}")

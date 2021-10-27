@@ -7,6 +7,17 @@ verify_ssl = true
 
 [packages]
 django = "*"
+pytest = "*"
+django-heroku = "*"
+django-debug-toolbar = "*"
+whitenoise = "*"
+yapf = "*"
+pylint = "*"
+pylint-django = "*"
+pytest-django = "*"
+django-user-agents = "*"
+django-extensions = "*"
+django-filter = "*"
 
 [requires]
-python_version = "3.8"
+python_version = "3.9"
