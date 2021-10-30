@@ -1,85 +1,78 @@
 # imports
+import typing
+
 from django.contrib import admin
+from django.contrib.auth import get_user_model
 from django.contrib.auth import admin as auth_admin
 from django.contrib.auth.models import Permission
 
-from main import models as main_models
-from accounts.models import *
+from root import models as root_models
+from accounts import models as account_models
+
+if typing.TYPE_CHECKING:
+    from django.http import HttpRequest
+    from django.db.models import QuerySet
+
 # End: imports -----------------------------------------------------------------
 
+User = get_user_model()
+
+# pylint: disable=unused-argument
+
+
 # Actions for Admin-site:
-def make_normal(modeladmin, request, queryset):
+@admin.action(description="Mark selected users as normal users without any permissions")
+def make_normal_user(modeladmin: admin.ModelAdmin, request: HttpRequest, queryset: QuerySet):
     queryset.update(is_staff=False)
     queryset.update(is_superuser=False)
-    make_normal_user.short_description = "Mark selected users as normal users without any permissions"
 
-def make_staff(modeladmin, request, queryset):
+
+@admin.action(description="Mark selected users as is_staff")
+def make_staff_user(modeladmin: admin.ModelAdmin, request: HttpRequest, queryset: QuerySet):
     queryset.update(is_staff=True)
     queryset.update(is_superuser=False)
-    make_staff.short_description = "Mark selected users as is_staff"
 
-def make_superuser(modeladmin, request, queryset):
+
+@admin.action(description="Mark selected users as is_superuser")
+def make_superuser(modeladmin: admin.ModelAdmin, request: HttpRequest, queryset: QuerySet):
     queryset.update(is_staff=True)
     queryset.update(is_superuser=True)
-    make_superuser.short_description = "Mark selected users as is_superuser"
 
+
+# End: Actions for Admin-site ---------------------------------------------------
+
+
+@admin.register(User)
 class UserAdmin(auth_admin.UserAdmin):
-    # User forms
-    form = auth_admin.UserChangeForm
-    add_form = auth_admin.UserCreationForm # Important!
-    change_password_form = auth_admin.AdminPasswordChangeForm
-
-    # Fields shown in user detail: admin/accounts//user/'id'/change
-    fieldsets = [
-        [None,              {'fields': ['password']}],
-        ['Personal info',   {'fields': ['username', 'email', 'first_name', 'last_name'] }],
-        ['Permissions',     {'fields': ['is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions']}],
-        ['Important dates', {'fields': ['last_login', 'date_joined']}],
-    ]
-    # No idea what this is for
-    # limited_fieldsets = [
-    #     [None,              {'fields':   []}],
-    #     ['Personal info',   {'fields': []}],
-    #     ['Important dates', {'fields': ['last_login', 'date_joined']}],
-    # ]
-    # # Not sure what this is for
-    # add_fieldsets = [
-    #     [None, {
-    #         'classes': ['wide',],
-    #         'fields': ['password1', 'password2']}
-    #     ],
-    # ]
-
-    list_display = ['username', 'id', 'email', 'first_name', 'last_name', 'gender', 'is_staff', 'is_superuser']
+    list_display = ['username', 'id', 'email', 'first_name', 'last_name', 'gender', 'is_active', 'is_staff', 'is_superuser']
     list_filter = ['is_staff', 'is_superuser', 'is_active', 'gender']
-    search_fields = ['nickname']
-    ordering = []
+    search_fields = ['username', 'email', 'first_name', 'last_name']
+    ordering = ['last_name']
     readonly_fields = ['last_login', 'date_joined']
     filter_horizontal = ['groups', 'user_permissions']
-    actions = [make_normal, make_staff, make_superuser]
+    actions = [make_normal_user, make_staff_user, make_superuser]
 
 
-class PermissionCodeAdmin(main_models.CustomBaseAdmin):
+@admin.register(account_models.PermissionCode)
+class PermissionCodeAdmin(root_models.CustomBaseAdmin):
     list_display = ['group', 'secret']
     list_filter = ['group']
     search_fields = ['group', 'secret']
     ordering = ['-id']
-    readonly_fields = []
-    filter_horizontal = []
-    actions = []
+    # readonly_fields = []
+    # filter_horizontal = []
+    # actions = []
 
 
+@admin.register(account_models.Department)
 class DepartmentAdmin(admin.ModelAdmin):
-    list_display = ['title', 'parent', 'member_count']
+    list_display = ['name', 'parent', 'member_count']
     list_filter = ['parent']
-    search_fields = ['title']
-    ordering = []
-    readonly_fields = []
-    filter_horizontal = []
-    actions = []
+    search_fields = ['name']
+    # ordering = []
+    # readonly_fields = []
+    # filter_horizontal = []
+    # actions = []
 
 
-admin.site.register(User, UserAdmin)
 admin.site.register(Permission)
-admin.site.register(PermissionCode, PermissionCodeAdmin)
-admin.site.register(Department, DepartmentAdmin)
