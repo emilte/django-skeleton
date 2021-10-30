@@ -1,7 +1,7 @@
 [MASTER]
 load-plugins=pylint_django
 ignore=migrations,node_modules,venv,.venv,frontend,staticroot,scripts
-max-line-length=140
+max-line-length=160
 include-naming-hint=y
 django-settings-module=root.settings
 
