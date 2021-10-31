@@ -21,19 +21,19 @@ User = get_user_model()
 
 
 # Actions for Admin-site:
-@admin.action(description="Mark selected users as normal users without any permissions")
+@admin.action(description='Mark selected users as normal users without any permissions')
 def make_normal_user(modeladmin: admin.ModelAdmin, request: HttpRequest, queryset: QuerySet):
     queryset.update(is_staff=False)
     queryset.update(is_superuser=False)
 
 
-@admin.action(description="Mark selected users as is_staff")
+@admin.action(description='Mark selected users as is_staff')
 def make_staff_user(modeladmin: admin.ModelAdmin, request: HttpRequest, queryset: QuerySet):
     queryset.update(is_staff=True)
     queryset.update(is_superuser=False)
 
 
-@admin.action(description="Mark selected users as is_superuser")
+@admin.action(description='Mark selected users as is_superuser')
 def make_superuser(modeladmin: admin.ModelAdmin, request: HttpRequest, queryset: QuerySet):
     queryset.update(is_staff=True)
     queryset.update(is_superuser=True)

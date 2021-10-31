@@ -16,17 +16,17 @@ class Command(BaseCommand):
         for app in settings.INSTALLED_APPS:
             try:
                 path = app.replace('.', '/')
-                migrations = f"{path}/migrations"
-                app_migrations = glob.glob(f"{migrations}/[0-9]*")
+                migrations = f'{path}/migrations'
+                app_migrations = glob.glob(f'{migrations}/[0-9]*')
 
                 for f in app_migrations:
                     os.remove(f)
-                    print(f"Removed {f}")
+                    print(f'Removed {f}')
 
-                pycache = f"{migrations}/__pycache__"
+                pycache = f'{migrations}/__pycache__'
                 shutil.rmtree(pycache)
-                print(f"Removed {pycache}")
+                print(f'Removed {pycache}')
 
             except Exception as e:
                 pass
-                # print(f"{app} failed. {e}")
+                # print(f'{app} failed. {e}')

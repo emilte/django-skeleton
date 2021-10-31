@@ -8,7 +8,7 @@ import debug_toolbar
 # End: imports -----------------------------------------------------------------
 
 urlpatterns = [
-    path('admin/', admin.site.urls, name="admin"),
+    path('admin/', admin.site.urls, name='admin'),
 ]
 
 urlpatterns += static(prefix=settings.STATIC_URL, document_root=settings.STATIC_ROOT)

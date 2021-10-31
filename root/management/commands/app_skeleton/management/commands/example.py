@@ -25,7 +25,7 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
-        print("\n== COMMAND: example ==")
+        print('\n== COMMAND: example ==')
         if options['interactive']:
             ...
             # prompt something
