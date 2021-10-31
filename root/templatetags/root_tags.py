@@ -34,39 +34,39 @@ def random_choice(iterable):
 
 
 # settings value
-@register.simple_tag(name="get_settings")
+@register.simple_tag(name='get_settings')
 def get_settings(var_name):
     """
     Usage:
-        {% settings_value "LANGUAGE_CODE" %}
+        {% settings_value 'LANGUAGE_CODE' %}
     """
-    return getattr(settings, var_name, "")
+    return getattr(settings, var_name, '')
 
 
-@register.simple_tag(name="marked_by")
+@register.simple_tag(name='marked_by')
 def marked_by(interactable, user):
     """
     Usage:
         {% marked_by interactable user as (type of intraction, example favorite) %}
     """
     if not interactable and not user:
-        raise Exception("interactable is required")
+        raise Exception('interactable is required')
     if not user:
-        raise Exception("user is required")
+        raise Exception('user is required')
 
     return interactable.is_marked_by(user)
 
 
-@register.simple_tag(name="reacted_by")
+@register.simple_tag(name='reacted_by')
 def reacted_by(interactable, user):
     """
     Usage:
         {% reacted_by interactable user as (type of intraction, example liked) %}
     """
     if not interactable and not user:
-        raise Exception("interactable is required")
+        raise Exception('interactable is required')
     if not user:
-        raise Exception("user is required")
+        raise Exception('user is required')
 
     return interactable.is_reacted_by(user)
 
@@ -77,17 +77,17 @@ def times(number):
     return range(number)
 
 
-@register.filter(name="since")
+@register.filter(name='since')
 def time_since_datetime(datetime):
     seconds = (timezone.now() - datetime).total_seconds()
     if seconds < 60 * 2:
-        return "Akkurat nå"
+        return 'Akkurat nå'
     elif seconds < 60 * 60:
-        return f"{int(seconds//60)} minutter siden"
+        return f'{int(seconds//60)} minutter siden'
     elif seconds < 60 * 60 * 24:
-        return f"{int(seconds//3600)} timer siden"
+        return f'{int(seconds//3600)} timer siden'
     elif seconds < 60 * 60 * 24 * 3:
-        return f"{int(seconds//86400)} dager siden"
+        return f'{int(seconds//86400)} dager siden'
     return datetime
 
 

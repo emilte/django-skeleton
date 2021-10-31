@@ -19,7 +19,7 @@ if typing.TYPE_CHECKING:
 
 
 # Actions:
-@admin.action(description="Do something to selected rows")
+@admin.action(description='Do something to selected rows')
 def example_action(modeladmin: admin.ModelAdmin, request: HttpRequest, queryset: QuerySet):
     queryset.update(is_active=False)
 
