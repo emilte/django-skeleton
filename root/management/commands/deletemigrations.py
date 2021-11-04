@@ -28,5 +28,5 @@ class Command(BaseCommand):
                 print(f'Removed {pycache}')
 
             except Exception as e:
-                pass
                 # print(f'{app} failed. {e}')
+                pass

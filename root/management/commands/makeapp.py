@@ -1,11 +1,13 @@
 # imports
-from django.core.management.base import BaseCommand
-from django.core import management
-from django.conf import settings
-
 import os
+
+from django.conf import settings
+from django.core import management
+from django.core.management.base import BaseCommand
+
 # End: imports -----------------------------------------------------------------
 
+# yapf: disable
 app_structure = [
     {'management': [
         {'commands': [
@@ -42,41 +44,42 @@ app_structure = [
     'urls.py',
     'views.py', # Added from startapp
 ]
+# yapf: enable
 
 
 def recursive_creation(structure, appname, path):
     """
     Recursively generate folders and files given a structure
-     
-    structure: list 
+
+    structure: list
         - a description of files (strings) and folders (dictionaries).
         Each folder has another layer of structure.
-        
-    appname: string 
+
+    appname: string
         - A name to use instead of "appname" in structures
-    
+
     path: string
-        - current working directory 
+        - current working directory
     """
-    
+
     for item in structure:
-        if type(item) is dict:
+        if isinstance(item, dict):
             folder = list(item.keys())[0]
             foldername = appname if folder == "appname" else folder
             newpath = path / foldername
             try:
                 os.mkdir(newpath)
-            except:
-                pass    
-                
+            except Exception:
+                pass
+
             recursive_creation(item[folder], appname, newpath)
         else:
             filepath = path / item
-            open(filepath, 'a').close()
-            
+            open(filepath, 'a', encoding='utf-8').close()
+
 
 class Command(BaseCommand):
-    
+
     def add_arguments(self, parser):
         parser.add_argument(
             dest='appname',
@@ -84,10 +87,9 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
-        
+
         appname = options['appname']
         management.call_command("startapp", appname)
-        
+
         path = settings.BASE_DIR / appname
         recursive_creation(app_structure, appname, path)
-        

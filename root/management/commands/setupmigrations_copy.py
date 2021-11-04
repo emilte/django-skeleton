@@ -9,11 +9,11 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         """ Call makemigrations on each installed app """
-        
+
         for app in settings.INSTALLED_APPS:
             appname = app.split('.')[-1]
             try:
                 management.call_command('makemigrations', appname)
             except Exception as e:
-                pass
-                print(f"{app} failed. {e}")
+                print(f'{app} failed. {e}')
+                # pass

@@ -16,5 +16,5 @@ class Command(BaseCommand):
                 management.call_command('makemigrations', appname)
 
             except Exception as e:
-                pass
                 print(f"{app} failed. {e}")
+                pass

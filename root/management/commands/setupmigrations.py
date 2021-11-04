@@ -9,14 +9,14 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         for app in settings.PROJECT_APPS:
-            
+
             try:
                 path = app.replace('.', '/')
                 migrations = f"{path}/migrations"
                 os.mkdir(migrations)
                 init = f"{migrations}/__init__.py"
-                open(init, 'a').close()
-                
+                open(init, 'a', encoding='utf-8').close()
+
             except Exception as e:
-                pass
                 # print(f"{app} failed. {e}")
+                pass

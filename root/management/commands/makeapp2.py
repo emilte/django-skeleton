@@ -1,12 +1,9 @@
 # imports
-import os
 import shutil
 import typing
-import pathlib
 
-from django.core.management.base import BaseCommand
-from django.core import management
 from django.conf import settings
+from django.core.management.base import BaseCommand
 
 if typing.TYPE_CHECKING:
     from pathlib import PosixPath

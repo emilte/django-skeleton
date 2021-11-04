@@ -6,12 +6,11 @@ from django.db.models.signals import post_save
 # #from allauth.account import signals as allauth_signals
 #
 from django.contrib.auth import get_user_model
+
 User = get_user_model()
 #from email.message import EmailMessage
 
-
 # End: imports -----------------------------------------------------------------
-
 
 # @receiver(post_save, sender=User)
 # def permissions(sender, instance, created, **kwargs):
@@ -19,8 +18,6 @@ User = get_user_model()
 #
 #         brukere_models.Account.objects.create(user=instance)
 #         print("== (brukere.signals.py) Account for {} created ==".format(instance))
-
-
 
 # @receiver(allauth_signals.user_signed_up)
 # def create_settings(request, user, **kwargs):
