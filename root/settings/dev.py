@@ -1,7 +1,19 @@
+# imports
 import os
+
+from django.core import management
+from django.core.management.base import CommandError
 
 from root.constants import Environment
 from .base import *  # pylint: disable=wildcard-import, unused-wildcard-import
+# End: imports -----------------------------------------------------
+
+try:
+    # define credentials in '.env' file
+    management.call_command('createsuperuser', interactive=False)
+except CommandError:
+    # multiple calls of 'createsuperuser' will raise exception because the username is already taken
+    pass
 
 ALLOWED_HOSTS = ['*']
 
