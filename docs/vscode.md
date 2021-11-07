@@ -48,7 +48,7 @@ Which folders and files are relevant to VScode, what do they mean, and which one
 - `settings.json.default`  
   Contains common project-specific settings shared between developers. These settings are project specific and intended to be used ba all team-members. Copy these settings into `settings.json`.
 
-- `settings.json.recommended`  
+- `settings.json.suggestions`  
   Contains suggestions for useful settings, but not neccessary ones. Copy into `settings.json` if desired.
 
 <br><br>
@@ -66,7 +66,7 @@ Which folders and files are relevant to VScode, what do they mean, and which one
 - Install desired extensions from `extensions.json.recommended`.
 - Create file `/.vscode/settings.json`.
 - Copy settings from `settings.json.default` into `settings.json`.
-- Copy desired settings from `settings.json.recommended` into `settings.json`.
+- Copy desired settings from `settings.json.suggestions` into `settings.json`.
 
 <br><br>
 
