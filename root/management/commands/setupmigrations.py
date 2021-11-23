@@ -12,11 +12,11 @@ class Command(BaseCommand):
 
             try:
                 path = app.replace('.', '/')
-                migrations = f"{path}/migrations"
+                migrations = f'{path}/migrations'
                 os.mkdir(migrations)
-                init = f"{migrations}/__init__.py"
+                init = f'{migrations}/__init__.py'
                 open(init, 'a', encoding='utf-8').close()
 
             except Exception as e:
-                # print(f"{app} failed. {e}")
+                # print(f'{app} failed. {e}')
                 pass
