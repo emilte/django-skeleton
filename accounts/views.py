@@ -60,7 +60,7 @@ class SignUpView(View):
                 group = account_models.PermissionCode.objects.get(secret=code).group
                 user.groups.add(group)
                 messages.success(request, f'Med koden "{code}" har du blitt lagt til i avdeling: {group.name}')
-            except:
+            except:  # pylint: disable=bare-except
                 messages.warning(request, f'Koden "{code}" tilsvarer ingen avdeling. Ta kontakt med admin')
 
             return redirect('home')
@@ -91,8 +91,7 @@ class LoginView(View):
         if user is not None:
             login(request, user)
             return redirect('accounts:profile')
-        else:
-            error = 'Feil'
+        error = 'Feil'
 
         return render(request, self.template, {'error': error})
 

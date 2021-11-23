@@ -10,8 +10,36 @@ from django.core.management.base import BaseCommand
 
 class Command(BaseCommand):
 
+    def add_arguments(self, parser):
+        parser.add_argument(
+            '--noinput',
+            '--no-input',
+            action='store_false',
+            dest='interactive',
+            help='Tells Django to NOT prompt the user for input of any kind.',
+        )
+
+    def confirmation(self):
+        answer = None
+        yes = ['yes', 'y']
+        no = ['no', 'n']
+        print('== This command will:')
+        print('\t 1. Delete all migration files.')
+
+        print('\n== Are you sure? DOUBLE-CHECK that this is not production server ==')
+
+        while answer not in yes + no:
+            answer = input("Type 'y(es)' or 'n(o)': ").lower()
+
+        return answer in yes
+
     def handle(self, *args, **options):
         """ Delete all migration files for each installed app """
+
+        if options['interactive']:
+            if not self.confirmation():
+                print('== ABORT ==')
+                return
 
         for app in settings.INSTALLED_APPS:
             try:
@@ -28,5 +56,5 @@ class Command(BaseCommand):
                 print(f'Removed {pycache}')
 
             except Exception as e:
-                # print(f'{app} failed. {e}')
                 pass
+                # print(f'{app} failed. {e}')

@@ -57,7 +57,7 @@ class CustomBaseAdmin(admin.ModelAdmin):
                 obj.created = timezone.now()
             obj.last_editor = request.user
             obj.last_edited = timezone.now()
-        except Exception as _:
+        except Exception as _:  # pylint: disable=broad-except
             pass
 
         return super().save_model(request, obj, form, change)
@@ -70,20 +70,20 @@ class CustomBaseModel(models.Model):
         null=True,
         blank=True,
         editable=False,
-        related_name="editor_%(class)s_set",
-        verbose_name="Sist redigert av"
+        related_name='editor_%(class)s_set',
+        verbose_name='Sist redigert av'
     )
-    last_edited = models.DateTimeField(null=True, blank=True, editable=False, verbose_name="Sist redigert")
+    last_edited = models.DateTimeField(null=True, blank=True, editable=False, verbose_name='Sist redigert')
     creator = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
         editable=False,
-        related_name="creator_%(class)s_set",
-        verbose_name="Opprettet av"
+        related_name='creator_%(class)s_set',
+        verbose_name='Opprettet av'
     )
-    created = models.DateTimeField(null=True, blank=True, editable=False, verbose_name="Opprettet")
+    created = models.DateTimeField(null=True, blank=True, editable=False, verbose_name='Opprettet')
 
     class Meta:
         abstract = True

@@ -82,11 +82,11 @@ def time_since_datetime(datetime):
     seconds = (timezone.now() - datetime).total_seconds()
     if seconds < 60 * 2:
         return 'Akkurat nå'
-    elif seconds < 60 * 60:
+    if seconds < 60 * 60:
         return f'{int(seconds//60)} minutter siden'
-    elif seconds < 60 * 60 * 24:
+    if seconds < 60 * 60 * 24:
         return f'{int(seconds//3600)} timer siden'
-    elif seconds < 60 * 60 * 24 * 3:
+    if seconds < 60 * 60 * 24 * 3:
         return f'{int(seconds//86400)} dager siden'
     return datetime
 
